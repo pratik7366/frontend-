@@ -223,7 +223,6 @@
 
       try {
       const res = await fetch('https://image-backend-4img.onrender.com/upload', {
-
           method: 'POST',
           body: formData
         });
@@ -286,11 +285,12 @@
   const endpoint = isLogin ? '/api/login' : '/api/signup';
 
   try {
-    const res = await fetch(`https://image-backend-4img.onrender.com${endpoint}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
+  const res = await fetch(`https://image-backend-4img.onrender.com${endpoint}`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+
 
     const data = await res.json();
     if (res.ok) {
