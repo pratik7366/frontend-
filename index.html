@@ -182,6 +182,19 @@
       z-index: 10000;
       box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
+    #logoutBtn {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  background: #ff5555;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
   </style>
 </head>
 <body>
@@ -224,10 +237,22 @@
       alert('You are already logged in!');
     }
 
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('token');
-      alert('You have been logged out.');
-      window.location.reload();
+  const logoutBtn = document.getElementById('logoutBtn');
+
+// Show or hide logout button based on login state
+if (localStorage.getItem('token')) {
+  logoutBtn.style.display = 'block';
+} else {
+  logoutBtn.style.display = 'none';
+}
+
+logoutBtn.addEventListener('click', () => {
+  localStorage.removeItem('token');
+  alert('You have been logged out.');
+  logoutBtn.style.display = 'none';
+  window.location.reload();
+
+
     });
 
     document.getElementById('uploadForm').addEventListener('submit', async function(e) {
