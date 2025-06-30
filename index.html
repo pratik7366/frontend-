@@ -208,6 +208,12 @@
   </div>
 
   <script>
+    if (localStorage.getItem('token')) {
+  alert('You are already logged in!');
+  // Optionally redirect to dashboard:
+  // window.location.href = '/dashboard.html';
+}
+
     document.getElementById('uploadForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const file = document.getElementById('imageInput').files[0];
