@@ -111,7 +111,6 @@
       background-color: #ffcc00;
     }
 
-    /* Auth & UI Elements */
     .top-bar {
       position: fixed;
       top: 10px;
@@ -125,6 +124,19 @@
       font-size: 24px;
       cursor: pointer;
       color: #fff;
+    }
+
+    #logoutBtn {
+      position: fixed;
+      top: 10px;
+      left: 20px;
+      background: #ff5555;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 9999;
     }
 
     .auth-container {
@@ -157,7 +169,6 @@
       text-decoration: underline;
     }
 
-    /* Buy me a coffee icon only */
     #coffeeBtn {
       position: fixed;
       bottom: 20px;
@@ -177,6 +188,7 @@
   <div class="top-bar">
     <button id="loginBtn" title="Login / Sign Up"><i class="fas fa-user-circle"></i></button>
   </div>
+  <button id="logoutBtn">Logout</button>
 
   <div class="container">
     <h1>Upload & Share Image</h1>
@@ -209,10 +221,14 @@
 
   <script>
     if (localStorage.getItem('token')) {
-  alert('You are already logged in!');
-  // Optionally redirect to dashboard:
-  // window.location.href = '/dashboard.html';
-}
+      alert('You are already logged in!');
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      alert('You have been logged out.');
+      window.location.reload();
+    });
 
     document.getElementById('uploadForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -228,7 +244,7 @@
       formData.append('image', file);
 
       try {
-      const res = await fetch('https://image-backend-4img.onrender.com/upload', {
+        const res = await fetch('https://image-backend-4img.onrender.com/upload', {
           method: 'POST',
           body: formData
         });
@@ -262,10 +278,8 @@
       const code = document.getElementById('codeInput').value.trim();
       if (!code) return alert("Please enter a secret code.");
       window.location.href = `https://image-backend-4img.onrender.com/download/${code}`;
-
     }
 
-    // Auth logic toggle
     const form = document.getElementById('authForm');
     const toggle = document.getElementById('toggleForm');
     const formTitle = document.getElementById('formTitle');
@@ -281,39 +295,36 @@
     });
 
     loginBtn.addEventListener('click', () => {
+      localStorage.removeItem('token'); // force logout before new login
       authBox.classList.toggle('active');
     });
 
-   form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const endpoint = isLogin ? '/api/login' : '/api/signup';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const endpoint = isLogin ? '/api/login' : '/api/signup';
 
-  try {
- const res = await fetch(`https://image-backend-4img.onrender.com${endpoint}`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email, password })
+      try {
+        const res = await fetch(`https://image-backend-4img.onrender.com${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
 
-});
-
-
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
-      alert(`Welcome ${isLogin ? 'back' : ''}!`);
-      document.getElementById('authBox').classList.remove('active');
-      // You can also redirect: window.location.href = '/dashboard.html';
-    } else {
-      alert(data.message || 'Something went wrong.');
-    }
-  } catch (err) {
-    alert("Server error, please try again later.");
-    console.error(err);
-  }
-});
-
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          alert(`Welcome ${isLogin ? 'back' : ''}!`);
+          document.getElementById('authBox').classList.remove('active');
+        } else {
+          alert(data.message || 'Something went wrong.');
+        }
+      } catch (err) {
+        alert("Server error, please try again later.");
+        console.error(err);
+      }
+    });
   </script>
 </body>
 </html>
