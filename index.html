@@ -222,7 +222,8 @@
       formData.append('image', file);
 
       try {
-        const res = await fetch('https://image-share-backend-hwtt.onrender.com/upload', {
+      const res = await fetch('https://image-backend-4img.onrender.com/upload', {
+
           method: 'POST',
           body: formData
         });
@@ -255,7 +256,8 @@
     function downloadImage() {
       const code = document.getElementById('codeInput').value.trim();
       if (!code) return alert("Please enter a secret code.");
-      window.location.href = `https://image-share-backend-hwtt.onrender.com/download/${code}`;
+      window.location.href = `https://image-backend-4img.onrender.com/download/${code}`;
+
     }
 
     // Auth logic toggle
