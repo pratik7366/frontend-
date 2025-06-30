@@ -279,27 +279,34 @@
       authBox.classList.toggle('active');
     });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const endpoint = isLogin ? '/api/login' : '/api/signup';
+   form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const endpoint = isLogin ? '/api/login' : '/api/signup';
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('token', data.token);
-        alert(`Welcome ${isLogin ? 'back' : ''}! Redirecting to dashboard...`);
-        window.location.href = '/dashboard.html';
-      } else {
-        alert(data.message || 'Something went wrong.');
-      }
+  try {
+    const res = await fetch(`https://image-backend-4img.onrender.com${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
     });
+
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      alert(`Welcome ${isLogin ? 'back' : ''}!`);
+      document.getElementById('authBox').classList.remove('active');
+      // You can also redirect: window.location.href = '/dashboard.html';
+    } else {
+      alert(data.message || 'Something went wrong.');
+    }
+  } catch (err) {
+    alert("Server error, please try again later.");
+    console.error(err);
+  }
+});
+
   </script>
 </body>
 </html>
