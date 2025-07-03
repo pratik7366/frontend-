@@ -1,5 +1,13 @@
 // script.js
 
+// Toggle responsive menu
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
 let isLogin = true;
 const form = document.getElementById('authForm');
 const logoutBtn = document.getElementById('logoutBtn');
