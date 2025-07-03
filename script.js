@@ -24,26 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initial auth check
+  // Check login state from localStorage
   if (localStorage.getItem('token')) {
     const userId = localStorage.getItem('userId') || 'Unknown';
     setLoginState(true, userId);
   }
 
-  // Auth Toggle
+  // Toggle between login and sign up
   toggle.addEventListener('click', () => {
     isLogin = !isLogin;
     formTitle.textContent = isLogin ? 'Login' : 'Sign Up';
     form.querySelector('button').textContent = isLogin ? 'Login' : 'Sign Up';
-    toggle.innerHTML = isLogin ? `Don't have an account? <span>Create one</span>` : `Already have an account? <span>Login</span>`;
+    toggle.innerHTML = isLogin
+      ? `Don't have an account? <span>Create one</span>`
+      : `Already have an account? <span>Login</span>`;
   });
 
+  // Show login panel
   loginBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     authBox.classList.add('active', 'slide-in');
     setTimeout(() => authBox.classList.remove('slide-in'), 500);
   });
 
+  // Logout logic
   logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
@@ -52,8 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.reload();
   });
 
+  // Hide login box when clicking outside
   document.addEventListener('click', (e) => {
-    if (!authBox.contains(e.target) && e.target !== loginBtn && authBox.classList.contains('active')) {
+    if (
+      !authBox.contains(e.target) &&
+      e.target !== loginBtn &&
+      authBox.classList.contains('active')
+    ) {
       authBox.classList.add('slide-out');
       setTimeout(() => {
         authBox.classList.remove('slide-out', 'active');
@@ -61,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Auth form submit
+  // Login or signup form submit
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
@@ -86,19 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(data.message || 'Something went wrong.');
       }
     } catch (err) {
-      alert("Server error, please try again later.");
+      alert('Server error, please try again later.');
       console.error(err);
     }
   });
 
-  // Upload logic
-  uploadForm.addEventListener('submit', async function(e) {
+  // Upload form logic
+  uploadForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const file = document.getElementById('imageInput').files[0];
-    if (!file) return alert("Please select an image.");
-    if (!file.type.startsWith("image/")) return alert("Only image files allowed!");
-    if (file.size > 5 * 1024 * 1024) return alert("Max file size is 5MB.");
+    if (!file) return alert('Please select an image.');
+    if (!file.type.startsWith('image/')) return alert('Only image files allowed!');
+    if (file.size > 5 * 1024 * 1024) return alert('Max file size is 5MB.');
 
     const loading = document.getElementById('loading');
     loading.style.display = 'block';
@@ -120,27 +129,29 @@ document.addEventListener('DOMContentLoaded', () => {
       codeBox.style.display = 'block';
       document.getElementById('copyCodeBtn').style.display = 'block';
       uploadForm.reset();
-      alert("Image uploaded successfully!");
+      alert('Image uploaded successfully!');
     } catch (err) {
-      alert("Failed to upload image. Try again.");
+      alert('Failed to upload image. Try again.');
       console.error(err);
     } finally {
       loading.style.display = 'none';
     }
   });
 
+  // Copy secret code
   document.getElementById('copyCodeBtn').onclick = () => {
     const codeBox = document.getElementById('codeBox');
     const code = codeBox.textContent.replace('Your Secret Code: ', '');
     navigator.clipboard.writeText(code);
-    alert("Code copied to clipboard!");
+    alert('Code copied to clipboard!');
     codeBox.style.display = 'none';
     document.getElementById('copyCodeBtn').style.display = 'none';
   };
 
+  // Download image
   window.downloadImage = function () {
     const code = document.getElementById('codeInput').value.trim();
-    if (!code) return alert("Please enter a secret code.");
+    if (!code) return alert('Please enter a secret code.');
     window.location.href = `https://image-share-backend-hwtt.onrender.com/download/${code}`;
   };
 });
