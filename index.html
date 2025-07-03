@@ -13,51 +13,57 @@
 </head>
 <body>
   <header>
-  <div class="logo-section">
-    <img src="login (1).png" class="login-icon" id="loginBtn" alt="Login" title="Login / Sign Up" />
-    <h1>HighResShare</h1>
-  </div>
-  <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
-  <div class="nav-links" id="navLinks">
-    <a href="#uploads">My Uploads</a>
-    <a href="#photos">Photos</a>
-    <a href="#videos">Videos</a>
-    <a href="#downloads">My Downloads</a>
-    <a href="#help">Help</a>
-  </div>
-</header>
+    <div class="logo-section">
+      <img src="login (1).png" class="login-icon" id="loginBtn" alt="Login" title="Login / Sign Up" />
+      <h1>HighResShare</h1>
+    </div>
+    <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="#uploads">My Uploads</a>
+      <a href="#photos">Photos</a>
+      <a href="#videos">Videos</a>
+      <a href="#downloads">My Downloads</a>
+      <a href="#help">Help</a>
+    </div>
+  </header>
 
+  <!-- 👤 Display user -->
+  <div id="userDisplay" style="display: none;"></div>
   <button id="logoutBtn" style="display: none;">Logout</button>
 
+  <!-- 📤 Upload Section -->
   <div class="container">
     <h1>Upload & Share Image</h1>
     <form id="uploadForm">
       <input type="file" id="imageInput" accept="image/*" required />
       <button type="submit">Upload</button>
-      <div id="loading">Uploading...</div>
+      <div id="loading" style="display:none;">Uploading...</div>
     </form>
     <div id="codeBox" class="code-box" style="display: none;"></div>
-    <button id="copyCodeBtn">Copy Code</button>
+    <button id="copyCodeBtn" style="display:none;">Copy Code</button>
 
     <h1>Access Image</h1>
     <input type="text" id="codeInput" placeholder="Enter Secret Code" aria-label="Secret Code" />
-    <button onclick="downloadImage()">Download Image</button>
+    <button id="downloadBtn">Download Image</button>
   </div>
 
+  <!-- ☕ Coffee Button -->
   <button id="coffeeBtn" title="Buy me a coffee"><i class="fas fa-mug-hot"></i></button>
 
- <div class="auth-container" id="authBox">
-  <h2 id="formTitle">Login</h2>
-  <form id="authForm">
-  <input type="email" id="email" placeholder="Email" required autocomplete="off" />
-<input type="password" id="password" placeholder="Password" required autocomplete="off" />
-
-    <button type="submit">Login</button>
-  </form>
-  <div class="switch-link">
-    <span id="toggleForm">Don't have an account? Create one</span>
+  <!-- 🔐 Auth Container -->
+  <div class="auth-container" id="authBox">
+    <h2 id="formTitle">Login</h2>
+    <form id="authForm">
+      <input type="email" id="email" placeholder="Email" required autocomplete="off" />
+      <input type="password" id="password" placeholder="Password" required autocomplete="off" />
+      <button type="submit">Login</button>
+    </form>
+    <div class="switch-link">
+      <span id="toggleForm">Don't have an account? Create one</span>
+    </div>
   </div>
-</div>
- <script src="script.js" defer></script>
+
+  <!-- 📜 Script at end with defer -->
+  <script src="script.js" defer></script>
 </body>
 </html>
