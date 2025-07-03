@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,25 +7,26 @@
   <meta name="description" content="Upload high-quality images and share them securely using a secret code. No compression.">
   <meta name="keywords" content="image upload, share images, high quality, secure image sharing">
   <meta name="author" content="Pratik Ranjan">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <header>
     <div class="logo-section">
-      <img src="login-icon.png" alt="Login" class="login-icon">
+      <img src="login-icon.png" class="login-icon" id="loginBtn" alt="Login" title="Login / Sign Up" />
       <h1>HighResShare</h1>
     </div>
-    <nav class="nav-links">
-      <a href="#">My Uploads</a>
-      <a href="#">Photos</a>
-      <a href="#">Videos</a>
-      <a href="#">My Downloads</a>
-      <a href="#">Help</a>
-    </nav>
+    <div class="nav-links">
+      <a href="#uploads">My Uploads</a>
+      <a href="#photos">Photos</a>
+      <a href="#videos">Videos</a>
+      <a href="#downloads">My Downloads</a>
+      <a href="#help">Help</a>
+    </div>
   </header>
 
+  <div id="userDisplay"></div>
   <button id="logoutBtn">Logout</button>
 
   <div class="container">
