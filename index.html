@@ -46,18 +46,17 @@
 
   <button id="coffeeBtn" title="Buy me a coffee"><i class="fas fa-mug-hot"></i></button>
 
-  <div class="auth-container" id="authBox">
-    <h2 id="formTitle">Login</h2>
-    <form id="authForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-    <div class="switch-link">
-      <span id="toggleForm">Don't have an account? Create one</span>
-    </div>
+ <div class="auth-container" id="authBox">
+  <h2 id="formTitle">Login</h2>
+  <form id="authForm">
+    <input type="email" id="email" placeholder="Email" required autocomplete="email" />
+    <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
+    <button type="submit">Login</button>
+  </form>
+  <div class="switch-link">
+    <span id="toggleForm">Don't have an account? Create one</span>
   </div>
-
+</div>
   <script src="script.js"></script>
 </body>
 </html>
