@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     if (!authBox.contains(e.target) && e.target !== loginBtn && authBox.classList.contains('active')) {
       authBox.classList.add('slide-out');
-      setTimeout(() => {
+      setTimeout((2sec) => {
         authBox.classList.remove('slide-out', 'active');
       }, 500);
     }
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Upload form submit
+   const uploadForm = document.getElementById('uploadForm');
   uploadForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
